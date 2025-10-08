@@ -1,0 +1,272 @@
+<style>
+    #charcont {
+        width: 25%;
+        height: 100%, -50px;
+        float: left;
+        background: linear-gradient(rgb(128, 128, 128), rgb(64, 64, 64));
+        padding: 25px;
+        outline: whitesmoke 1px solid;
+        box-shadow: 4px 4px 3px rgba(0, 0, 0, .75);
+    }
+    
+    #invcont {
+        width: 75%;
+        height: 100%, -50px;
+        margin-left: 25px;
+        float: right;
+        background: linear-gradient(rgb(128, 128, 128), rgb(64, 64, 64));
+        padding: 25px;
+        outline: whitesmoke 1px solid;
+        box-shadow: 4px 4px 3px rgba(0, 0, 0, .75);
+    }
+    
+    #render {
+        width: 100%;
+    }
+    
+    #render img {
+        width: 100%;
+        image-rendering: crisp-edges, -moz-crisp-edges;
+    }
+    
+    #redraw {
+        float: right;
+        margin-top: 5px;
+    }
+    
+    #bodyparts {
+        justify-content: center;
+        width: 150px;
+        height: 175px;
+        padding: 10px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    #bodyparts div {
+        background-color: white;
+        box-shadow: 4px 4px 3px rgba(0, 0, 0, .75);
+        position: static;
+        float: left;
+        border-radius: 4px;
+    }
+    
+    #bodyparts .limb {
+        width: 25%;
+        height: 40%;
+    }
+    
+    #bodyparts #head {
+        width: 25%;
+        height: 20%;
+        left: calc(50% - 25%/2);
+        top: -40%;
+    }
+    
+    #bodyparts #torso {
+        width: 50%;
+        height: 40%;
+        left: calc(50% - 50%);
+        top: -20%;
+    }
+    
+    #bodyparts #rarm {
+        top: 20%;
+    }
+    
+    #bodyparts #larm {
+        top: 20%;
+    }
+    
+    #bodyparts #rleg {
+        top: 60%;
+    }
+    
+    #bodyparts #lleg {
+        top: 60%;
+    }
+    
+    #bcpicker {
+        width: 7vw;
+        max-height: 12vw;
+        overflow: scroll;
+        background-color: rgb(32 32 32);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        position: absolute;
+        visibility: hidden;
+        z-index: 10000;
+    }
+    
+    #bcpicker div {
+        margin: 0.5%
+    }
+</style>
+
+<link rel="stylesheet" href="../styles/default.css">
+<link rel="icon" type="image/x-icon" href="../res/favicon.png">
+<title>Avatar Editor</title>
+
+<body>
+    <div id="bcpicker"></div>
+    <div id="middlebox">
+        <h1>Avatar Editor</h1>
+        <div id="charcont">
+            <div id="render"><img src="../res/place.svg" alt="Render">
+                <p style="font-style: italic; float: left; line-height: 0;">Having issues loading?</p>
+                <button id="redraw">Redraw</button>
+            </div>
+            <br>
+            <div id="bodyparts">
+                <div id="rarm" class="limb" style="background-color: rgb(249, 214, 46);"></div>
+                <div id="rleg" class="limb" style="background-color: rgb(199, 210, 60);"></div>
+                <div id="lleg" class="limb" style="background-color: rgb(199, 210, 60);"></div>
+                <div id="larm" class="limb" style="background-color: rgb(249, 214, 46);"></div>
+                <div id="head" style="background-color: rgb(249, 214, 46);"></div>
+                <div id="torso" style="background-color: rgb(13, 105, 172);"></div>
+            </div>
+        </div>
+        <div id="invcont">
+
+        </div>
+    </div>
+</body>
+
+<script src="avatar.js"></script>
+<script>
+    var avatar = {}
+    const sendy = document.getElementById('redraw')
+    const parts = document.getElementById('bodyparts')
+    const bcpicker = document.getElementById('bcpicker')
+    const invcont = document.getElementById('invcont')
+    const img = document.getElementById('render')
+
+    /*-------------BODYCOLORS-------------*/
+
+    function updateparts() {
+        for (let [part, id] of Object.entries(bodyparts)) {
+            let sel = document.getElementById(id)
+            if (avatar[part]) {
+                avatar[part].BrickColor = sel.value
+            } else {
+                avatar[part] = {
+                    BrickColor: sel.value
+                }
+            }
+        }
+    }
+    let focus = false
+
+    function unfocus() {
+        if (focus) {
+            focus = false
+            bcpicker.style.visibility = "hidden"
+        }
+    }
+    bcpicker.onmouseleave = unfocus
+    for (let child of parts.children) {
+        child.value = bodycolors[child.id]
+        let ind = Object.keys(brickcolors).find(v => brickcolors[v].Number == child.value)
+        let bc = brickcolors[ind]
+        child.style.backgroundColor = `rgb(${bc.RGB})`
+        child.onclick = function() {
+            focus = true
+            let pos = getOffset(child)
+            bcpicker.style.visibility = "visible"
+            bcpicker.style.left = (pos.left + child.offsetWidth / 2) + "px"
+            bcpicker.style.top = (pos.top + child.offsetHeight / 2) + "px"
+            bcpicker.value = child
+        }
+    }
+    let bcnode = document.createElement("div")
+    let size = `${225 / Object.entries(brickcolors).length}vw`
+    bcnode.style.width = size
+    bcnode.style.height = size
+    var sorted = Object.entries(brickcolors).sort(([ia, va], [ib, vb]) => {
+        let rgb1 = va.RGB.split(" ")
+        let rgb2 = vb.RGB.split(" ")
+        let hsl1 = rgbToHsl(rgb1[0], rgb1[1], rgb1[2])
+        let hsl2 = rgbToHsl(rgb2[0], rgb2[1], rgb2[2])
+        return va.Number - vb.Number //hsl1[2] - hsl2[2]
+    })
+    for (let [color, arr] of sorted) {
+        let elt = bcnode.cloneNode()
+        elt.value = String(arr.Number)
+        elt.style.backgroundColor = `rgb(${arr.RGB})`
+        elt.style.outlineColor = `rgb(${arr.RGB})`
+        elt.onclick = function() {
+            if (bcpicker.value) {
+                unfocus()
+                bcpicker.value.style.backgroundColor = `rgb(${arr.RGB})`
+                bcpicker.value.value = elt.value
+                updateparts()
+            }
+        }
+        bcpicker.appendChild(elt)
+    }
+
+    /*-------------INVENTORY-------------
+
+    for (let elta of invcont.children) {
+        elta.ontoggle = (event) => {
+            if (elta.open) {
+                for (let eltb of invcont.children) {
+                    if (eltb.tagName == "DETAILS" && !elta.isSameNode(eltb)) {
+                        eltb.open = false
+                    }
+                }
+            }
+        }
+    }
+    for (let item of inventory) {
+        let equipped = false
+        let parent = document.getElementById(item.Type)
+        let temp = document.createElement("div")
+        let title = document.createElement("label")
+        let but = document.createElement("button")
+        temp.class = "invitem"
+        title.for = "equip"
+        title.textContent = item.Name
+        but.textContent = "Equip"
+        but.class = "equip"
+        but.onclick = () => {
+            if (!equipped) {
+                equipped = true
+                but.textContent = "Unequip"
+                avatar[item.Name] = item.Data
+            } else {
+                equipped = false
+                but.textContent = "Equip"
+                delete avatar[item.Name]
+            }
+        }
+        temp.appendChild(title)
+        temp.appendChild(document.createElement("br"))
+        temp.appendChild(but)
+        parent.appendChild(temp)
+        invcont.appendChild(document.createElement("br"))
+    }*/
+
+    /*-------------END-------------*/
+
+    updateparts()
+
+    sendy.addEventListener('click', async() => {
+        updateparts()
+        console.log(JSON.stringify(avatar, null, 2))
+        sendy.setAttribute("disabled", true)
+        const url = domain + '/thumbnail/avatar';
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(avatar, null, 2)
+            });
+            const result = await response.text()
+            img.src = "data:image/png;base64," + result
+        } catch (error) {
+            console.error(error);
+        }
+        setTimeout(() => sendy.removeAttribute("disabled"), 3000);
+    });
+</script>
