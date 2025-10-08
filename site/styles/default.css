@@ -1,8 +1,38 @@
 body {
-    background: linear-gradient(rgb(32, 32, 32)), black;
     font-size: 15px;
     font-family: 'Trebuchet MS';
     color: whitesmoke;
+    background-color: black;
+    image-rendering: optimizeQuality;
+}
+
+#topbar {
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(rgb(64, 64, 64), rgb(32, 32, 32));
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, .25);
+    margin-left: 50%;
+    margin-top: -10px;
+    transform: translateX(-50%);
+    padding: 5px;
+    display: flex;
+    position: fixed;
+    z-index: 100;
+}
+
+#bg {
+    width: 125%;
+    height: 125%;
+    filter: blur(10px);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgb(5, 0, 0) 100%), url("../res/skybk.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    margin-left: 50%;
+    margin-top: -50px;
+    transform: translateX(-50%);
+    z-index: -1;
 }
 
 #middlebox {
@@ -10,14 +40,12 @@ body {
     height: 100%;
     max-height: 600px;
     background: linear-gradient(rgb(64, 64, 64), rgb(32, 32, 32));
-    box-shadow: 4px 4px 3px rgba(0, 0, 0, .75);
-    margin-top: 50px;
-    margin-bottom: 50px;
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, .25);
     margin-left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 100px);
     padding: 75px 25px 25px 25px;
-    outline: whitesmoke 1px solid;
     display: flex;
+    outline: whitesmoke 1px solid;
 }
 
 #middlebox h1 {
