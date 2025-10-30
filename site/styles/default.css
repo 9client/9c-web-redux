@@ -44,8 +44,7 @@ body {
     margin-left: 50%;
     transform: translate(-50%, 100px);
     padding: 75px 25px 25px 25px;
-    display: flex;
-    outline: whitesmoke 1px solid;
+    display: block;
 }
 
 #middlebox h1 {
@@ -54,4 +53,20 @@ body {
     font-weight: bold;
     position: absolute;
     float: left;
+}
+
+#textform input {
+    background: rgb(45,45,45);
+    border-style: solid;
+    border-color: rgb(75, 75, 75);
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    font-family: "Trebuchet MS";
+    color: whitesmoke; 
+}
+
+a:any-link {
+    color: rgb(255,75,75);
+    text-decoration: none;
 }

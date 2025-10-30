@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="../styles/default.css">
+<link rel="icon" type="image/x-icon" href="../res/favicon.png">
+<title>9client - Log In</title>
+
+<head>
+    <div id="topbar"><img src="../res/logo.png" alt="9client Logo"></div>
+    <div id="bg"></div>
+</head>
+
+<body>
+    <div id="middlebox" style="max-width: 500px; max-height: 500px; padding-top: 100px;">
+        <h1 style="left: 50%; transform: translateX(-50%); text-align: center;">
+            Log In
+        </h1>
+
+        <div id="textform">
+            <a id="userlabel">Username</a>
+            <br>
+            <input type="text" name="username" id="usernamefield" required>
+        </div>
+
+        <br>
+
+        <div id="textform">
+            <a id="pwordlabel">Password</a>
+            <br>
+            <input type="password" name="password" id="pwordfield" required>
+        </div>
+
+        <br>
+        <button onclick=submitfunc() id="submit" value="Submit" style="margin-bottom: 10px; padding: 8px 15px 8px 15px;">
+            Submit
+        </button>
+        <br>
+        <a>Need an account? </a><a href="../signup/index.html">Sign up.</a>
+    </div>
+</body>
+
+<script>
+    function submitfunc() {
+        window.alert("submitted")
+    }
+</script>
