@@ -3,10 +3,9 @@
         width: 25%;
         height: 100%, -50px;
         float: left;
-        background: linear-gradient(rgb(128, 128, 128), rgb(64, 64, 64));
+        background-color: rgb(40, 40, 40);
         padding: 25px;
-        box-shadow: 3px 3px 2px rgba(0, 0, 0, .25);
-        outline: whitesmoke 1px solid;
+        border: solid rgb(60, 60, 60) 2px;
     }
     
     #invcont {
@@ -14,10 +13,9 @@
         height: 100%, -50px;
         margin-left: 25px;
         float: right;
-        background: linear-gradient(rgb(128, 128, 128), rgb(64, 64, 64));
+        background-color: rgb(40, 40, 40);
         padding: 25px;
-        box-shadow: 3px 3px 2px rgba(0, 0, 0, .25);
-        outline: whitesmoke 1px solid;
+        border: solid rgb(60, 60, 60) 2px;
     }
     
     #render {
@@ -30,7 +28,7 @@
     }
     
     #redraw {
-        float: right;
+        float: left;
         margin-top: 5px;
     }
     
@@ -46,7 +44,6 @@
     
     #bodyparts div {
         background-color: white;
-        box-shadow: 3px 3px 2px rgba(0, 0, 0, .25);
         border-radius: 4px;
     }
     
@@ -60,14 +57,14 @@
         width: 37.5px;
         height: 37.5px;
         margin-left: 50%;
-        transform: translate(-50%, 0);
+        transform: translateX(-50%);
     }
     
     #bodyparts #torso {
         width: 75px;
         height: 75px;
         margin-left: 50%;
-        transform: translate(-50%, 0);
+        transform: translateX(-50%);
     }
     
     #bodyparts #rarm {
@@ -106,24 +103,31 @@
     #bcpicker div {
         margin: 0.5%
     }
+    
+    #bcpicker div:hover {
+        border: 2px whitesmoke;
+    }
 </style>
 
 <link rel="stylesheet" href="../styles/default.css">
 <link rel="icon" type="image/x-icon" href="../res/favicon.png">
-<title>Avatar Editor</title>
+<title>9client - Avatar Editor</title>
 
-<head>
-    <div id="topbar"><img src="../res/logo.png" alt="9client Logo"></div>
-    <div id="bg"></div>
-</head>
+<div class="topbar">
+    <img src="../res/logo.png" alt="9client Logo">
+    <a href="">Games</a>
+    <a href="">Catalog</a>
+    <img src="https://assets.scu.edu/images/icon/cog.png" href="" class="topbaricon"></img>
+    <a href="../login/index.html" style="float: right;">Log In</a>
+</div>
+<div class="bg"></div>
 
 <body>
     <div id="bcpicker"></div>
-    <div id="middlebox">
+    <div class="middlebox" style="display: flex; height: 100%; min-width: 800px;">
         <h1>Avatar Editor</h1>
         <div id="charcont">
             <div id="render"><img src="../res/place.svg" alt="Render">
-                <p style="font-style: italic; float: left; line-height: 0;">Having issues loading?</p>
                 <button id="redraw">Redraw</button>
             </div>
             <br>

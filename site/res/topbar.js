@@ -1,0 +1,1 @@
+document.getElementsByClassName("topbar").innerHTML = '<img src="../res/logo.png" alt="9client Logo"><a href="">Games</a><a href="">Catalog</a><a href="" style="float: right;">Log in</a>'
