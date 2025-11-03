@@ -3,10 +3,9 @@
         width: 25%;
         height: 100%, -50px;
         float: left;
-        background-color: rgb(40, 40, 40);
+        background: linear-gradient(rgb(128, 128, 128), rgb(64, 64, 64));
         padding: 25px;
         box-shadow: 3px 3px 2px rgba(0, 0, 0, .25);
-        outline: whitesmoke 1px solid;
     }
     
     #invcont {
@@ -14,10 +13,9 @@
         height: 100%, -50px;
         margin-left: 25px;
         float: right;
-        background-color: rgb(40, 40, 40);
+        background: linear-gradient(rgb(128, 128, 128), rgb(64, 64, 64));
         padding: 25px;
         box-shadow: 3px 3px 2px rgba(0, 0, 0, .25);
-        outline: whitesmoke 1px solid;
     }
     
     #render {
@@ -30,7 +28,7 @@
     }
     
     #redraw {
-        float: left;
+        float: right;
         margin-top: 5px;
     }
     
@@ -46,6 +44,7 @@
     
     #bodyparts div {
         background-color: white;
+        box-shadow: 3px 3px 2px rgba(0, 0, 0, .25);
         border-radius: 4px;
     }
     
@@ -59,14 +58,14 @@
         width: 37.5px;
         height: 37.5px;
         margin-left: 50%;
-        transform: translateX(-50%);
+        transform: translate(-50%, 0);
     }
     
     #bodyparts #torso {
         width: 75px;
         height: 75px;
         margin-left: 50%;
-        transform: translateX(-50%);
+        transform: translate(-50%, 0);
     }
     
     #bodyparts #rarm {
@@ -105,10 +104,6 @@
     #bcpicker div {
         margin: 0.5%
     }
-    
-    #bcpicker div:hover {
-        border: 2px whitesmoke;
-    }
 </style>
 
 <link rel="stylesheet" href="../styles/default.css">
@@ -116,7 +111,7 @@
 <title>9client - Avatar Editor</title>
 
 <div class="topbar">
-    <img src="../res/logo.png" alt="9client Logo">
+    <img src="../res/logo.png" alt="9client Logo"></img>
     <a href="">Games</a>
     <a href="">Catalog</a>
     <img src="https://assets.scu.edu/images/icon/cog.png" href="" class="topbaricon"></img>
@@ -126,10 +121,11 @@
 
 <body>
     <div id="bcpicker"></div>
-    <div id="middlebox">
+    <div class="middlebox" style="display: flex; height: 100%;">
         <h1>Avatar Editor</h1>
         <div id="charcont">
             <div id="render"><img src="../res/place.svg" alt="Render">
+                <p style="font-style: italic; float: left; line-height: 0;">Having issues loading?</p>
                 <button id="redraw">Redraw</button>
             </div>
             <br>
