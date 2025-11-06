@@ -31,7 +31,7 @@
             user: username_valid,
             taken: username_taken,
             pass: pword_valid
-        } = res.body
+        } = await res.json()
         var vpword_valid = vpwordfield.value == pwordfield.value
 
         if (usernamefield.value) {

@@ -20,9 +20,10 @@
         let pwordfield = document.getElementById("pwordfield")
 
         var res = submitform(usernamefield.value, pwordfield.value)
+        var body = await res.json()
 
-        var username_valid = res.body.user
-        var pword_valid = res.body.pass
+        var username_valid = body.user
+        var pword_valid = body.pass
 
         if (usernamefield.value) {
             if (!res.ok && !username_valid) {
