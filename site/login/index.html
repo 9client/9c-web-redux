@@ -25,8 +25,6 @@
     </div>
 
     <script>
-        //todo: handle checks on backend
-
         var req_field = "Required field"
         var err_style = "color: rgb(255,75,75);"
 
@@ -37,22 +35,29 @@
         let pwordfield = document.getElementById("pwordfield")
 
         function submitform() {
-            /* do post shit */
+            return await fetch(window.location.origin + "/login", {
+                method: "POST",
+                body: new FormData({
+                    user: usernamefield.value,
+                    pass: pwordfield.value
+                })
+            })
         }
 
         function updatevalid() {
 
-            var username_valid = false
-            var pword_valid = false
+            var { body, ok } = submitform()
+
+            var username_valid = body.user
+            var pword_valid = body.pass
 
             if (usernamefield.value) {
-                if (taken_names[usernamefield.value]) {
-                    userlabel.style = "color: whitesmoke;"
-                    userlabel.innerText = "Username"
-                    username_valid = true
-                } else {
+                if (!ok && !username_valid) {
                     userlabel.style = err_style
                     userlabel.innerText = "Invalid username"
+                } else {
+                    userlabel.style = "color: whitesmoke;"
+                    userlabel.innerText = "Username"
                 };
             } else {
                 userlabel.style = err_style
@@ -60,17 +65,17 @@
             };
 
             if (pwordfield.value) {
-                pwordlabel.style = "color: whitesmoke;"
-                pwordlabel.innerText = "Password"
-                pword_valid = true
+                if (!ok && pword_valid == false) {
+                    pwordlabel.style = err_style
+                    pwordlabel.innerText = "Invalid Password"
+                } else {
+                    pwordlabel.style = "color: whitesmoke;"
+                    pwordlabel.innerText = "Password"
+                };
             } else {
                 pwordlabel.style = err_style
                 pwordlabel.innerText = req_field
             };
-
-            if (username_valid & pword_valid) {
-                return true
-            }
 
         }
     </script>

@@ -34,85 +34,89 @@
     </div>
 
 
-<script>
-    var taken_names = {
-        "9client": true,
-    }
-
-    var req_field = "Required field"
-    var err_style = "color: rgb(255,75,75);"
-
-    let userlabel = document.getElementById("userlabel")
-    let pwordlabel = document.getElementById("pwordlabel")
-    let vpwordlabel = document.getElementById("vpwordlabel")
-
-    let usernamefield = document.getElementById("usernamefield")
-    let pwordfield = document.getElementById("pwordfield")
-    let vpwordfield = document.getElementById("vpwordfield")
-
-    function submitform() {
-        /* do post shit */
-    }
-
-    function updatevalid() {
-    //getting taken names from server would be VERY inefficient here
-    //todo: handle checks on backend
-
-        var username_valid = false
-        var pword_valid = false
-        var vpword_valid = false
-
-        if (usernamefield.value) {
-            if (taken_names[usernamefield.value]) {
-                userlabel.style = err_style
-                userlabel.innerText = "Username is taken"
-            } else {
-                if (usernamefield.value.length > 2) {
-                    userlabel.style = "color: whitesmoke;"
-                    userlabel.innerText = "Username"
-                    username_valid = true
-                } else {
-                    userlabel.style = err_style
-                    userlabel.innerText = "Username must be at least 3 characters"
-                };
-            };
-        } else {
-            userlabel.style = err_style
-            userlabel.innerText = req_field
-        };
-
-        if (pwordfield.value) {
-            if (pwordfield.value.length > 7) {
-                pwordlabel.style = "color: whitesmoke;"
-                pwordlabel.innerText = "Password"
-                pword_valid = true
-            } else {
-                pwordlabel.style = err_style
-                pwordlabel.innerText = "Password must be at least 8 characters"
-            };
-        } else {
-            pwordlabel.style = err_style
-            pwordlabel.innerText = req_field
-        };
-
-        if (vpwordfield.value) {
-            if (vpwordfield.value == pwordfield.value) {
-                vpwordlabel.style = "color: whitesmoke;"
-                vpwordlabel.innerText = "Verify Password"
-                vpword_valid = true
-            } else {
-                vpwordlabel.style = err_style
-                vpwordlabel.innerText = "Must match password"
-            };
-        } else {
-            vpwordlabel.style = err_style
-            vpwordlabel.innerText = req_field
-
-        };
-
-        if (username_valid & pword_valid & vpword_valid) {
-            return true
+    <script>
+        var taken_names = {
+            "9client": true,
         }
 
-    }
-</script>
+        var req_field = "Required field"
+        var err_style = "color: rgb(255,75,75);"
+
+        let userlabel = document.getElementById("userlabel")
+        let pwordlabel = document.getElementById("pwordlabel")
+        let vpwordlabel = document.getElementById("vpwordlabel")
+
+        let usernamefield = document.getElementById("usernamefield")
+        let pwordfield = document.getElementById("pwordfield")
+        let vpwordfield = document.getElementById("vpwordfield")
+
+        function submitform() {
+            return await fetch(window.location.origin + "/signup", {
+                method: "POST",
+                body: new FormData({
+                    user: usernamefield.value,
+                    pass: pwordfield.value
+                })
+            })
+        }
+
+        function updatevalid() {
+            var { body, ok } = submitform()
+
+            var {
+                user: username_valid,
+                taken: username_taken,
+                pass: pword_valid
+            } = body
+            var vpword_valid = vpwordfield.value == pwordfield.value
+
+            if (usernamefield.value) {
+                if (!ok) {
+                    userlabel.style = err_style
+                    if (username_taken) {
+                        userlabel.innerText = "Username is taken"
+                    } else {
+                        if (usernamefield.value.length > 3) {
+                            if (usernamefield.value.length >= 20) {
+                                userlabel.style = err_style
+                                userlabel.innerText = "Username must be at most 20 characters"
+                            };
+                        } else {
+                            userlabel.style = err_style
+                            userlabel.innerText = "Username must be at least 3 characters"
+                        };
+                    };
+                } else {
+                    userlabel.style = "color: whitesmoke;"
+                    userlabel.innerText = "Username"
+                };
+
+                if (pwordfield.value) {
+                    if (!pword_valid && pwordfield.value.length < 8) {
+                        pwordlabel.style = err_style
+                        pwordlabel.innerText = "Password must be at least 8 characters"
+                    } else {
+                        pwordlabel.style = "color: whitesmoke;"
+                        pwordlabel.innerText = "Password"
+                    };
+                } else {
+                    pwordlabel.style = err_style
+                    pwordlabel.innerText = req_field
+                };
+
+                if (vpwordfield.value) {
+                    if (vpword_valid) {
+                        vpwordlabel.style = "color: whitesmoke;"
+                        vpwordlabel.innerText = "Verify Password"
+                    } else {
+                        vpwordlabel.style = err_style
+                        vpwordlabel.innerText = "Must match password"
+                    };
+                } else {
+                    vpwordlabel.style = err_style
+                    vpwordlabel.innerText = req_field
+
+                };
+
+            }
+    </script>
