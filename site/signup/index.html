@@ -32,7 +32,7 @@
         var vpword_valid = vpwordfield.value == pwordfield.value
 
         if (usernamefield.value) {
-            if (!ok) {
+            if (!res.ok) {
                 userlabel.style = err_style
                 if (username_taken) {
                     userlabel.innerText = "Username is taken"
