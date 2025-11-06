@@ -70,7 +70,7 @@ a:any-link {
     width: 125%;
     height: 125%;
     filter: blur(10px);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgb(5, 0, 0) 100%), url("../res/skybk.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgb(5, 0, 0) 100%), url("/res/skybk.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
