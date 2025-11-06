@@ -1,17 +1,5 @@
-<link rel="stylesheet" href="../styles/default.css">
-<link rel="icon" type="image/x-icon" href="../res/favicon.png">
-<title>9client - Sign Up</title>
 
-<div class="topbar">
-    <img src="../res/logo.png" alt="9client Logo"></img>
-    <a href="">Games</a>
-    <a href="">Catalog</a>
-    <img src="https://assets.scu.edu/images/icon/cog.png" href="" class="topbaricon"></img>
-    <a href="../login/index.html" style="float: right;">Log In</a>
-</div>
-<div class="bg"></div>
 
-<body>
     <div class="middlebox" style="max-width: 500px; padding-top: 100px;">
         <h1>Create an account</h1>
 
@@ -42,9 +30,9 @@
             Submit
         </button>
         <br>
-        <a>Have an account? </a><a href="../login/index.html">Log in.</a>
+        <a>Have an account? </a><a href="/login">Log in.</a>
     </div>
-</body>
+
 
 <script>
     var taken_names = {
@@ -67,6 +55,8 @@
     }
 
     function updatevalid() {
+    //getting taken names from server would be VERY inefficient here
+    //todo: handle checks on backend
 
         var username_valid = false
         var pword_valid = false

@@ -1,17 +1,4 @@
-<link rel="stylesheet" href="../styles/default.css">
-<link rel="icon" type="image/x-icon" href="../res/favicon.png">
-<title>9client - Home</title>
 
-<div class="topbar">
-    <img src="../res/logo.png" alt="9client Logo"></img>
-    <a href="">Games</a>
-    <a href="">Catalog</a>
-    <img src="https://assets.scu.edu/images/icon/cog.png" href="" class="topbaricon"></img>
-    <a href="../login/index.html" style="float: right;">Log In</a>
-</div>
-<div class="bg"></div>
-
-<body>
 
     <div class="middlebox" style="padding-top: 25px;">
         <img src="../res/headshot.png" alt="you" style="height: 200px; border-radius: 50%; float: left; background-color: rgb(45,45,45);">
@@ -46,8 +33,6 @@
 
     </div>
 
-</body>
-
 <script>
     var greetings = {
         [0]: "Hello",
@@ -55,7 +40,7 @@
         [2]: "Hi",
         [3]: "Welcome",
     }
-    var username = "9client"
+    var username = "<%= user %>"
 
     var greetingtext = document.getElementById("greeting")
     greetingtext.innerText = greetings[Math.floor(Math.random() * 4)] + ", " + username + "!"
