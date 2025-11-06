@@ -1,13 +1,9 @@
 <script>
-    var taken_names = {
-        "9client": true,
-    }
-
     var req_field = "Required field"
     var err_style = "color: rgb(255,75,75);"
 
-    async function submitform(a, b) {
-        return await fetch(window.location.origin + "/signup", {
+    function submitform(a, b) {
+        return fetch(window.location.origin + "/signup", {
             method: "POST",
             body: new URLSearchParams({
                 user: a,
@@ -25,13 +21,14 @@
         const pwordfield = document.getElementById("pwordfield")
         const vpwordfield = document.getElementById("vpwordfield")
 
-        var res = submitform(usernamefield.value, pwordfield.value)
+        var res = await submitform(usernamefield.value, pwordfield.value)
 
         var {
             user: username_valid,
             taken: username_taken,
             pass: pword_valid
         } = await res.json()
+
         var vpword_valid = vpwordfield.value == pwordfield.value
 
         if (usernamefield.value) {

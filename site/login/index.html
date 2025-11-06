@@ -2,8 +2,8 @@
     var req_field = "Required field"
     var err_style = "color: rgb(255,75,75);"
 
-    async function submitform(a, b) {
-        return await fetch(window.location.origin + "/login", {
+    function submitform(a, b) {
+        return fetch(window.location.origin + "/login", {
             method: "POST",
             body: new URLSearchParams({
                 user: a,
@@ -19,7 +19,7 @@
         let usernamefield = document.getElementById("usernamefield")
         let pwordfield = document.getElementById("pwordfield")
 
-        var res = submitform(usernamefield.value, pwordfield.value)
+        var res = await submitform(usernamefield.value, pwordfield.value)
         var body = await res.json()
 
         var username_valid = body.user
