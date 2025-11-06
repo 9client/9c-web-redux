@@ -9,7 +9,7 @@
     async function submitform(a, b) {
         return await fetch(window.location.origin + "/signup", {
             method: "POST",
-            body: new FormData({
+            body: new URLSearchParams({
                 user: a,
                 pass: b
             })
