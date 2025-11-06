@@ -2,31 +2,30 @@
     var req_field = "Required field"
     var err_style = "color: rgb(255,75,75);"
 
-    let userlabel = document.getElementById("userlabel")
-    let pwordlabel = document.getElementById("pwordlabel")
-
-    let usernamefield = document.getElementById("usernamefield")
-    let pwordfield = document.getElementById("pwordfield")
-
-    function submitform() {
+    async function submitform(a, b) {
         return await fetch(window.location.origin + "/login", {
             method: "POST",
             body: new FormData({
-                user: usernamefield.value,
-                pass: pwordfield.value
+                user: a,
+                pass: b
             })
         })
     }
 
     function updatevalid() {
+        let userlabel = document.getElementById("userlabel")
+        let pwordlabel = document.getElementById("pwordlabel")
 
-        var { body, ok } = submitform()
+        let usernamefield = document.getElementById("usernamefield")
+        let pwordfield = document.getElementById("pwordfield")
 
-        var username_valid = body.user
-        var pword_valid = body.pass
+        var res = submitform(usernamefield.value, pwordfield.value)
+
+        var username_valid = res.body.user
+        var pword_valid = res.body.pass
 
         if (usernamefield.value) {
-            if (!ok && !username_valid) {
+            if (!res.ok && !username_valid) {
                 userlabel.style = err_style
                 userlabel.innerText = "Invalid username"
             } else {
@@ -39,7 +38,7 @@
         };
 
         if (pwordfield.value) {
-            if (!ok && pword_valid == false) {
+            if (!res.ok && pword_valid == false) {
                 pwordlabel.style = err_style
                 pwordlabel.innerText = "Invalid Password"
             } else {

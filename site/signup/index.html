@@ -6,32 +6,32 @@
     var req_field = "Required field"
     var err_style = "color: rgb(255,75,75);"
 
-    let userlabel = document.getElementById("userlabel")
-    let pwordlabel = document.getElementById("pwordlabel")
-    let vpwordlabel = document.getElementById("vpwordlabel")
-
-    let usernamefield = document.getElementById("usernamefield")
-    let pwordfield = document.getElementById("pwordfield")
-    let vpwordfield = document.getElementById("vpwordfield")
-
-    async function submitform() {
+    async function submitform(a, b) {
         return await fetch(window.location.origin + "/signup", {
             method: "POST",
             body: new FormData({
-                user: usernamefield.value,
-                pass: pwordfield.value
+                user: a,
+                pass: b
             })
         })
     }
 
     function updatevalid() {
-        var { body, ok } = submitform()
+        const userlabel = document.getElementById("userlabel")
+        const pwordlabel = document.getElementById("pwordlabel")
+        const vpwordlabel = document.getElementById("vpwordlabel")
+
+        const usernamefield = document.getElementById("usernamefield")
+        const pwordfield = document.getElementById("pwordfield")
+        const vpwordfield = document.getElementById("vpwordfield")
+
+        var res = submitform(usernamefield.value, pwordfield.value)
 
         var {
             user: username_valid,
             taken: username_taken,
             pass: pword_valid
-        } = body
+        } = res.body
         var vpword_valid = vpwordfield.value == pwordfield.value
 
         if (usernamefield.value) {
