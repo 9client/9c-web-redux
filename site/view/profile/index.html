@@ -1,1 +1,71 @@
+<style>
+    .request {
+        width: 80px;
+        height: 40px;
+        margin-left: 10px;
+    }
+    
+    .stat {
+        float: left;
+        font-size: 20px;
+        margin-right: 25px;
+    }
+</style>
 
+<body>
+    <div class="middlebox" style="padding-top: 25px;">
+        <img src="/res/headshot.png" alt="you" style="height: 200px; border-radius: 50%; float: left; background-color: rgb(45,45,45);">
+        <h1 id="username" style="font-size: 50px; margin-top: 15px; margin-left: 215px; text-overflow: clip; text-wrap-mode: nowrap;"></h1>
+
+        <a id="bio" style="position:absolute; float: left; margin-top: 75px; margin-left: 25px; font-size: 18px;"></a>
+
+        <div style="position:absolute; float: left; margin-top: 120px; margin-left: 225px;">
+            <a class="stat" id="friendcount" href=""><b>0</b> Friends</a>
+            <a class="stat" id="followercount" href=""><b>0</b> Followers</a>
+            <a class="stat" id="followingcount" href=""><b>0</b> Following</a>
+        </div>
+
+        <div style="float: right; margin-top: 160px;">
+            <button class="request" id="requestfriend">Friend</button>
+            <button class="request" id="requestfollow">Follow</button>
+        </div>
+    </div>
+
+    <div class="middlebox" style="margin-top: 25px; padding-top: 25px;">
+        <img src="/res/withouttool.png" alt="avatarrender" id="avatarrender" style="float: left; background-color: rgb(45, 45, 45); width: 50%;">
+    </div>
+
+    <div class="middlebox" style="margin-top: 25px;">
+
+        <h1>Friends</h1>
+
+        <div style="margin-top: 25px;">
+
+            <div class="friend">
+                <a href=""><img src="/res/headshot.png"></a>
+                <a href="">10client</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="middlebox" style="margin-top: 25px; padding-top: 25px;">
+
+        <div style="float: left; width: 50%; text-align: center;">
+            <h2>Join Date</h2>
+            <a id="joindate">1/1/1997</a>
+        </div>
+
+        <div style="float: left; width: 50%; text-align: center;">
+            <h2>Place Visits</h2>
+            <a id="placevisits">0</a>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    document.getElementById("username").innerText = "<%= profile.user %>"
+    document.getElementById("bio").innerText = "<%= profile.bio %>"
+</script>
