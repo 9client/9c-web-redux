@@ -15,14 +15,14 @@
 <body>
     <div class="middlebox" style="padding-top: 25px;">
         <img src="/res/headshot.png" alt="you" style="height: 200px; border-radius: 50%; float: left; background-color: rgb(45,45,45);">
-        <h1 id="username" style="font-size: 50px; margin-top: 15px; margin-left: 215px; text-overflow: clip; text-wrap-mode: nowrap;"></h1>
+        <h1 id="username" style="font-size: 50px; margin-top: 15px; margin-left: 215px; text-overflow: clip; text-wrap-mode: nowrap;"><%= profile.user %></h1>
 
-        <a id="bio" style="position:absolute; float: left; margin-top: 75px; margin-left: 25px; font-size: 18px;"></a>
+        <a id="bio" style="position:absolute; float: left; margin-top: 75px; margin-left: 25px; font-size: 18px;"><%= profile.bio %></a>
 
         <div style="position:absolute; float: left; margin-top: 120px; margin-left: 225px;">
-            <a class="stat" id="friendcount" href=""><b>0</b> Friends</a>
-            <a class="stat" id="followercount" href=""><b>0</b> Followers</a>
-            <a class="stat" id="followingcount" href=""><b>0</b> Following</a>
+            <a class="stat" id="friendcount" href=""><b><%= profile.friends.length %></b> Friends</a>
+            <a class="stat" id="followercount" href=""><b><%= profile.followers.length %></b> Followers</a>
+            <a class="stat" id="followingcount" href=""><b><%= profile.following.length %></b> Following</a>
         </div>
 
         <div style="float: right; margin-top: 160px;">
@@ -41,10 +41,12 @@
 
         <div style="margin-top: 25px;">
 
+            <% /* friends.forEach(function(friend){ %>
             <div class="friend">
                 <a href=""><img src="/res/headshot.png"></a>
-                <a href="">10client</a>
+                <a href=""><%= friend.name %></a>
             </div>
+            <% }); */ %>
 
         </div>
 
@@ -64,8 +66,3 @@
 
     </div>
 </body>
-
-<script>
-    document.getElementById("username").innerText = "<%= profile.user %>"
-    document.getElementById("bio").innerText = "<%= profile.bio %>"
-</script>
