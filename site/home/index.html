@@ -1,6 +1,7 @@
 <div class="middlebox" style="padding-top: 25px;">
     <img src="/res/headshot.png" alt="you" style="height: 200px; border-radius: 50%; float: left; background-color: rgb(45,45,45);">
     <h1 id="greeting" style="font-size: 50px; margin-top: 15px; margin-left: 215px; text-overflow: clip; text-wrap-mode: nowrap;">
+        <%= let greetings = ["Hello","Greetings","Hi","Welcome"] %>
         <%= greetings[Math.floor(Math.random() * greetings.length)]%>, <%= user %>!
     </h1>
 
