@@ -1,0 +1,23 @@
+<form method="post"
+      action="/asset/upload"
+      enctype="multipart/form-data">
+    <div>
+        <label for="name">Name</label>
+        <input name="name" id="name" value="" />
+    </div>
+    <div>
+        <label for="desc">Description</label>
+        <input name="desc" id="desc" value="" />
+    </div>
+    <div>
+        <label for="type">Type</label>
+        <input name="type" id="type" disabled value="Shirt" />
+    </div>
+    <div>
+        <label for="file">Choose a file</label>
+        <input type="file" id="file" name="ShirtAsset" />
+    </div>
+    <div>
+        <button>Upload</button>
+    </div>
+</form>
